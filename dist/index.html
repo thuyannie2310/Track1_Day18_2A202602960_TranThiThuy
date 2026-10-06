@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Ba micro-prototype Human–AI cho AI Tutor — Track 1 Day 18.">
+  <title>AI Tutor Lab · Three Prototypes</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23131d33'/%3E%3Cpath d='M17 19h30v20H31l-9 8v-8h-5z' fill='%236ee7b7'/%3E%3Cpath d='M25 27h14M25 33h9' stroke='%23131d33' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="AI Tutor Lab — về đầu trang">
+      <span class="brand-mark" aria-hidden="true">A</span>
+      <span><strong>AI Tutor Lab</strong><small>Human–AI Design Experiment</small></span>
+    </a>
+    <div class="top-actions">
+      <span class="fixture-pill">Cùng 1 bài học · 1 nhiệm vụ</span>
+      <button class="quiet-button" id="resetAll" type="button">Đặt lại toàn bộ</button>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="intro" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow">Track 1 · Day 18+19</p>
+        <h1 id="page-title">Ba cách để AI giúp bạn thoát khỏi một điểm kẹt</h1>
+        <p class="intro-copy">Hãy hoàn thành cùng một nhiệm vụ trong cả A, B và C. Chú ý xem bạn phải làm gì, AI tự làm gì, và bạn lấy lại quyền kiểm soát bằng cách nào.</p>
+      </div>
+      <div class="task-card" aria-label="Nhiệm vụ kiểm thử">
+        <span class="task-label">Nhiệm vụ</span>
+        <p>Hiểu vì sao learning rate quá lớn khiến loss dao động, rồi chọn lời giải thích đủ rõ để bạn tiếp tục bài học.</p>
+      </div>
+    </section>
+
+    <nav class="option-tabs" aria-label="Chọn phương án prototype" role="tablist">
+      <button class="option-tab active" role="tab" aria-selected="true" aria-controls="panel-a" id="tab-a" data-option="a">
+        <span class="option-letter">A</span><span><strong>Bạn dẫn dắt</strong><small>AI chỉ trả lời khi được gọi</small></span>
+      </button>
+      <button class="option-tab" role="tab" aria-selected="false" aria-controls="panel-b" id="tab-b" data-option="b">
+        <span class="option-letter">B</span><span><strong>Cùng chẩn đoán</strong><small>AI hỏi trước khi giải thích</small></span>
+      </button>
+      <button class="option-tab" role="tab" aria-selected="false" aria-controls="panel-c" id="tab-c" data-option="c">
+        <span class="option-letter">C</span><span><strong>AI chủ động</strong><small>AI phát hiện và đề xuất, bạn duyệt</small></span>
+      </button>
+    </nav>
+
+    <div class="workspace">
+      <aside class="lesson-card" aria-label="Nội dung bài học dùng chung">
+        <div class="lesson-meta"><span>ML Foundations</span><span>04 / 08</span></div>
+        <h2>Gradient Descent</h2>
+        <p>Gradient descent cập nhật trọng số theo hướng ngược với gradient để giảm hàm mất mát:</p>
+        <div class="formula" aria-label="w mới bằng w cũ trừ learning rate nhân gradient">w<sub>new</sub> = w<sub>old</sub> − η∇L(w)</div>
+        <p>Learning rate <strong>η</strong> quyết định độ dài của mỗi bước cập nhật.</p>
+        <button class="confusing-line" type="button" data-shared-trigger>
+          <span>Điểm đang vướng</span>
+          “Khi η quá lớn, mô hình có thể vượt qua điểm cực tiểu và loss sẽ dao động thay vì hội tụ.”
+        </button>
+        <div class="lesson-progress"><span style="width:52%"></span></div>
+        <small>52% bài học · Nội dung mẫu giống nhau ở cả 3 option</small>
+      </aside>
+
+      <section class="prototype-stage">
+        <div class="stage-heading">
+          <div>
+            <p class="stage-kicker" id="stageKicker">OPTION A · USER-LED COPILOT</p>
+            <h2 id="stageTitle">Bạn chọn đúng chỗ cần trợ giúp</h2>
+          </div>
+          <span class="autonomy-badge" id="autonomyBadge">Tự trị thấp</span>
+        </div>
+
+        <section class="option-panel active" id="panel-a" role="tabpanel" aria-labelledby="tab-a" data-panel="a">
+          <div class="flow-state active" data-state="start">
+            <div class="prompt-card">
+              <span class="status-icon">?</span>
+              <div><h3>Bạn muốn làm rõ điều gì?</h3><p>AI chưa đọc hay phân tích cho tới khi bạn chủ động yêu cầu.</p></div>
+            </div>
+            <label class="choice-row"><input type="radio" name="a-focus" value="overshoot" checked><span><strong>Vì sao bước lớn lại “vượt qua” điểm cực tiểu?</strong><small>Tập trung vào cơ chế dao động</small></span></label>
+            <label class="choice-row"><input type="radio" name="a-focus" value="eta"><span><strong>Ký hiệu η có ý nghĩa gì?</strong><small>Ôn lại khái niệm learning rate</small></span></label>
+            <label class="choice-row"><input type="radio" name="a-focus" value="example"><span><strong>Cho tôi một ví dụ bằng số</strong><small>Minh hoạ từng bước cập nhật</small></span></label>
+            <div class="action-row"><button class="primary" data-action="a-generate">Giải thích phần tôi chọn</button><button class="secondary" data-action="dismiss">Tiếp tục tự đọc</button></div>
+          </div>
+          <div class="flow-state" data-state="loading" aria-live="polite">
+            <div class="loading-card"><span class="spinner"></span><strong>Đang đối chiếu với nội dung bài hiện tại…</strong><button class="text-button" data-action="a-stop">Dừng</button></div>
+          </div>
+          <div class="flow-state" data-state="result">
+            <article class="answer-card">
+              <div class="answer-top"><span class="confidence medium">Độ tin cậy: trung bình</span><span>Chỉ dùng nội dung bài học</span></div>
+              <h3>Hãy hình dung bạn đang bước xuống một thung lũng</h3>
+              <p>Nếu mỗi bước vừa đủ nhỏ, bạn tiến dần tới đáy. Nếu bước quá dài, bạn có thể nhảy từ sườn bên này sang sườn bên kia. Gradient đổi hướng sau mỗi lần “nhảy qua”, nên loss tăng–giảm luân phiên và không ổn định.</p>
+              <div class="mini-chart" aria-label="Minh hoạ loss dao động"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+              <details><summary>Xem căn cứ và giới hạn</summary><ul><li>Bài học hiện tại, đoạn “Learning rate η”.</li><li>Công thức cập nhật w<sub>new</sub> = w<sub>old</sub> − η∇L(w).</li><li>AI chưa kiểm tra bạn đã nắm đạo hàm hay chưa.</li></ul></details>
+            </article>
+            <div class="action-row"><button class="primary" data-action="a-simpler">Giải thích đơn giản hơn</button><button class="secondary" data-action="a-edit">Đổi điều tôi muốn hỏi</button><button class="ghost" data-action="reset-option">Hoàn tác</button></div>
+          </div>
+        </section>
+
+        <section class="option-panel" id="panel-b" role="tabpanel" aria-labelledby="tab-b" data-panel="b" hidden>
+          <div class="flow-state active" data-state="start">
+            <div class="prompt-card diagnostic"><span class="status-icon">2</span><div><h3>Hai câu ngắn để tìm đúng lỗ hổng</h3><p>AI sẽ dùng câu trả lời của bạn để chọn một phần ôn. Bạn có thể bỏ qua chẩn đoán.</p></div></div>
+            <fieldset><legend>1. Nếu η tăng, điều gì thay đổi trực tiếp?</legend>
+              <label class="chip-choice"><input type="radio" name="b-q1" value="step"><span>Độ dài bước cập nhật</span></label>
+              <label class="chip-choice"><input type="radio" name="b-q1" value="gradient"><span>Hướng của gradient</span></label>
+              <label class="chip-choice"><input type="radio" name="b-q1" value="unsure"><span>Tôi chưa chắc</span></label>
+            </fieldset>
+            <fieldset><legend>2. Bạn hình dung “hội tụ” là gì?</legend>
+              <label class="chip-choice"><input type="radio" name="b-q2" value="stable"><span>Loss dần ổn định gần mức thấp</span></label>
+              <label class="chip-choice"><input type="radio" name="b-q2" value="zero"><span>Loss bắt buộc bằng 0</span></label>
+              <label class="chip-choice"><input type="radio" name="b-q2" value="unsure"><span>Tôi chưa chắc</span></label>
+            </fieldset>
+            <div class="inline-warning" id="bWarning" role="alert" hidden>Hãy chọn một câu trả lời ở mỗi câu, hoặc bỏ qua chẩn đoán.</div>
+            <div class="action-row"><button class="primary" data-action="b-diagnose">Tạo phần ôn phù hợp</button><button class="secondary" data-action="b-skip">Bỏ qua chẩn đoán</button></div>
+          </div>
+          <div class="flow-state" data-state="result">
+            <article class="answer-card">
+              <div class="answer-top"><span class="confidence high">Độ tin cậy: khá</span><span>Phác thảo từ 2 câu trả lời</span></div>
+              <p class="diagnosis-line"><strong>Chẩn đoán tạm thời:</strong> Bạn đã nhận ra η điều khiển độ dài bước, nhưng mối liên hệ với dao động có thể chưa rõ.</p>
+              <h3>Phần ôn 90 giây: bước quá dài và đổi hướng</h3>
+              <ol><li>Gradient cho biết hướng dốc lên; ta đi ngược hướng đó.</li><li>η nhân với gradient để tạo độ dài bước.</li><li>Bước quá dài vượt đáy; gradient ở phía đối diện đổi dấu.</li><li>Bước tiếp theo lại vượt ngược trở lại — loss dao động.</li></ol>
+              <details open><summary>Căn cứ được dùng</summary><p>Công thức và đoạn được tô sáng trong bài hiện tại. Chẩn đoán chỉ dựa trên hai lựa chọn vừa nhập, không phải đánh giá năng lực học tập.</p></details>
+            </article>
+            <div class="action-row"><button class="primary" data-action="b-understood">Tôi đã hiểu, quay lại bài</button><button class="secondary" data-action="b-edit">Sửa câu trả lời</button><button class="ghost" data-action="reset-option">Hoàn tác</button></div>
+          </div>
+        </section>
+
+        <section class="option-panel" id="panel-c" role="tabpanel" aria-labelledby="tab-c" data-panel="c" hidden>
+          <div class="flow-state active" data-state="start">
+            <div class="agent-banner"><span class="pulse-dot"></span><div><strong>AI phát hiện một điểm có thể gây vướng</strong><p>Dựa trên việc bạn dừng ở đoạn này 18 giây và đã đọc lại hai lần. Chưa có thay đổi nào được áp dụng.</p></div></div>
+            <div class="agent-plan">
+              <div class="plan-number">01</div><div><strong>Đánh dấu khái niệm nền</strong><small>Learning rate điều khiển độ dài bước</small></div><span>Đã chuẩn bị</span>
+              <div class="plan-number">02</div><div><strong>Tạo thẻ giải thích</strong><small>Ví dụ trực quan + công thức từ bài</small></div><span>Đã chuẩn bị</span>
+              <div class="plan-number">03</div><div><strong>Gợi ý quay lại bài</strong><small>Chỉ thực hiện sau khi bạn duyệt</small></div><span>Chờ duyệt</span>
+            </div>
+            <div class="uncertainty-box"><strong>Vì sao AI chưa chắc?</strong><p>Thời gian dừng có thể do mất tập trung, không nhất thiết là chưa hiểu. Hãy kiểm tra đề xuất trước khi dùng.</p></div>
+            <div class="action-row"><button class="primary" data-action="c-review">Xem thẻ AI đã chuẩn bị</button><button class="secondary" data-action="c-stop">Dừng và tự học</button><button class="ghost" data-action="c-why">Vì sao tôi thấy gợi ý này?</button></div>
+          </div>
+          <div class="flow-state" data-state="result">
+            <article class="answer-card agent-result">
+              <div class="answer-top"><span class="confidence medium">Độ tin cậy: 72%</span><span>Bản nháp — chưa đánh dấu “đã hiểu”</span></div>
+              <h3>Thẻ ôn nhanh do AI chuẩn bị</h3>
+              <div class="two-col"><div><small>Nếu η vừa phải</small><strong>Tiến dần về đáy</strong><p>Các bước cập nhật nhỏ dần khi gradient giảm.</p></div><div><small>Nếu η quá lớn</small><strong>Vượt qua đáy</strong><p>Gradient đổi dấu, bước cập nhật nhảy qua lại.</p></div></div>
+              <div class="source-strip"><strong>Nguồn 1/1</strong><span>Gradient Descent · đoạn đang đọc</span><button data-action="c-source">Mở đoạn nguồn</button></div>
+              <label class="editable-note">Ghi chú của bạn<textarea id="cNote" rows="2">Learning rate quá lớn làm bước cập nhật vượt qua điểm cực tiểu và đổi hướng liên tục.</textarea></label>
+            </article>
+            <div class="action-row"><button class="primary" data-action="c-approve">Duyệt và tiếp tục bài</button><button class="secondary" data-action="c-edit">Chỉnh thẻ</button><button class="ghost" data-action="reset-option">Hoàn tác về trước khi AI phân tích</button></div>
+          </div>
+        </section>
+
+        <div class="toast" id="toast" role="status" aria-live="polite"></div>
+      </section>
+    </div>
+
+    <section class="compare-note" aria-label="Cách so sánh">
+      <strong>Sau khi thử đủ ba:</strong>
+      <span>Phương án nào giúp bạn hiểu nhanh nhất?</span>
+      <span>Phương án nào khiến bạn thấy kiểm soát tốt nhất?</span>
+      <span>Bạn sẵn sàng đánh đổi thêm bước thao tác để lấy điều gì?</span>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
